@@ -1,0 +1,24 @@
+.Product{
+	width: 30%;
+	border: 1px solid whitesmoke;
+	box-shadow: 0 0 5px gray;
+	margin: 10px auto;
+	padding: 10px;
+
+}
+
+button{
+	background: darkslateblue;
+	border: none;
+	padding: 3px;
+	color: white;
+}
+
+button:hover{
+	color: whitesmoke;
+	background: slateblue
+}
+
+button:active{
+	background: red
+}
