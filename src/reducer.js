@@ -1,7 +1,5 @@
 import {GET_PRODUCTS } from './productActions';
 
-import uuid from 'uuid';
-
 const initialState = [];
 
 export const reducer = (state = initialState, action)=>{

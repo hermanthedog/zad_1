@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import Product from './Product';
-import axios from 'axios';
 import DevTools from './DevTools';
 import {connect} from 'react-redux';
 import {fetchProducts, fetchVote} from './productActions'
 
 class App extends Component {
-  constructor(props){
-    super(props)
-  }
-
+  
   componentWillMount(){
     this.props.fetchProducts();
   }
