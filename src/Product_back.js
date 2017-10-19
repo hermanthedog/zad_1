@@ -6,17 +6,33 @@ class Product extends Component {
   constructor(props){
     super(props)
     this.state={
-      value: 1, 
+      value: 1
     }
   }
 
   handleChange=(event)=>{
     this.setState({value: event.target.value});
   }
+
+  fetchValue=()=>{
+    let configJson = {
+    url: 'http://188.116.11.87/graphql',
+    method: 'post', 
+    data: {
+      query: `mutation{rating(product_id:6, group_id:6, value:${this.state.value}, name:"maciej", phone:"3", email:"555",content:"content"){value}}`
+      }
+    }  
+
+    axios(configJson).then(res=>{
+      console.log(res.data)
+    }).catch(err=>{
+      console.log('error ' + err )
+    })
+  }
  
   handleSubmit=()=>{
     console.log('yay')
-    this.props.fetchVote(this.state.value, this.props.item.id);
+    this.fetchValue();  
   }
 
   render() {

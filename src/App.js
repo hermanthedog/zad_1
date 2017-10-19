@@ -2,45 +2,43 @@ import React, { Component } from 'react';
 import './App.css';
 import Product from './Product';
 import axios from 'axios';
+import DevTools from './DevTools';
+import {connect} from 'react-redux';
+import {fetchProducts, fetchVote} from './productActions'
 
 class App extends Component {
   constructor(props){
     super(props)
-    this.state={
-      data:[],
-    }
   }
 
-  fetchData=()=>{
-    let config = {
-      url: 'http://188.116.11.87/graphql',
-      method: 'post', 
-      data: {
-        query: `query{product{id, name, average}}`
-      }
-    }  
-    axios(config).then(res=>{
-      this.setState({data:res.data.data.product})
-    }).catch(err=>{
-      console.log('ups ' + err )
-    })
-  }
-
-  componentDidMount(){
-    this.fetchData()
+  componentWillMount(){
+    this.props.fetchProducts();
   }
 
   render() {
-    const { data } = this.state;
+    const { data } = this.props;
     
     return (
-      <div className="App">{console.log(this.state)}
+      <div className="App"><DevTools/>{console.log(this.props)}
       {data.map(product=>{ 
-        return <Product fetchData={this.fetchData} key={product.id} item={product}/>
+        return <Product fetchVote={this.props.fetchVote} key={product.id} item={product}/>
       })}
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) =>{
+  return{
+    data: state.reducer
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return {
+      fetchProducts:()=>dispatch(fetchProducts()),
+      fetchVote:(value, id)=>dispatch(fetchVote(value, id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
